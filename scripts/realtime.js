@@ -1,9 +1,11 @@
 import { domain } from "./data.js";
 
 export function setupRealtimeUpdates(newRecordCallback) {
-    const socket = io(domain);
+    if (!domain.includes('vercel')) {
+        const socket = io(domain);
 
-    socket.on('sensorData', newRecord => {
-        newRecordCallback(newRecord);
-    });
+        socket.on('sensorData', newRecord => {
+            newRecordCallback(newRecord);
+        });
+    }
 }

@@ -1,6 +1,14 @@
+export const domain = (() => {
+    if (window.location.href.startsWith('http://127.0.0.1:5500')) {
+        return 'http://localhost:3000';
+    } else {
+        return 'https://iot-dashboard-server.vercel.app';
+    }
+})();
+
 export async function loadSensorData() {
     try {
-        const response = await fetch('http://localhost:3000/data');
+        const response = await fetch(`${domain}/data`);
         return await response.json();
     } catch (error) {
         console.error('Error loading sensor data:', error);

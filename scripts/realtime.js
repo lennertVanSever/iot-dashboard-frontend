@@ -1,6 +1,7 @@
-// realtime.js
+import { domain } from "./data.js";
+
 export function setupRealtimeUpdates(newRecordCallback) {
-    const socket = io('http://localhost:3000');
+    const socket = io(domain);
 
     socket.on('sensorData', newRecord => {
         newRecordCallback(newRecord);

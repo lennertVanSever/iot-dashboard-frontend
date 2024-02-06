@@ -73,7 +73,9 @@ export function createChart(metricName, sensorData, container, sensorId) {
         margin: { l: 60, r: 20, t: 30, b: 70 }
     };
 
-    const config = { responsive: true }
+    const isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+
+    const config = { responsive: true, staticPlot: isMobile, }
 
     Plotly.newPlot(chartDiv, data, layout, config);
 }

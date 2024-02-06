@@ -2,7 +2,7 @@ export const domain = (() => {
     if (window.location.href.startsWith('http://127.0.0.1:5500')) {
         return 'http://localhost:3000';
     } else {
-        return 'https://iot-dashboard-server.vercel.app';
+        return 'https://iot-dashboard-server-production.up.railway.app';
     }
 })();
 

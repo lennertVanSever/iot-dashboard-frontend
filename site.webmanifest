@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Sensor Dashboard",
+    "short_name": "SensorDash",
     "icons": [
         {
             "src": "/logo/android-chrome-192x192.png",

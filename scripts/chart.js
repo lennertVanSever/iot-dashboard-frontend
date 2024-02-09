@@ -38,15 +38,21 @@ export function createChart(metricName, sensorData, container, sensorId) {
             return; // Exit if metric name is not recognized
     }
 
-    // Proceed with using dataKey and color as they are now properly defined
+    const chartType = window.currentChartType; // Use the global variable
+
+    // Adjust the data definition to use the chartType variable
     const data = [{
         x: sensorData.timestamps,
         y: sensorData[dataKey],
-        type: 'scatter',
-        mode: 'lines+markers',
+        type: chartType, // Use the variable instead of hardcoding 'scatter'
+        mode: chartType === 'line' ? 'lines+markers' : undefined,
         marker: { color: color },
-        line: { color: color, width: 2 }
+        line: chartType === 'line' ? { color: color, width: 2 } : undefined
     }];
+
+    const paddingFactor = 0.001; // This is a 10% padding
+    const minYValue = Math.min(...sensorData[dataKey]) * (1 - paddingFactor);
+    const maxYValue = Math.max(...sensorData[dataKey]) * (1 + paddingFactor);
 
     const layout = {
         paper_bgcolor: 'transparent',
@@ -66,7 +72,8 @@ export function createChart(metricName, sensorData, container, sensorId) {
         },
         yaxis: {
             title: metricName,
-            autorange: true,
+            autorange: false,
+            range: [minYValue, maxYValue],
             tickfont: { color: textColor },
             gridcolor: borderColor
         },

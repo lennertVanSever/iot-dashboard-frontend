@@ -3,11 +3,15 @@ import { populateSensorMenu, highlightSelectedSensor } from './ui.js';
 import { createChart, updateChart } from './chart.js';
 import { setupRealtimeUpdates } from './realtime.js';
 
+window.currentChartType = 'line';
 
+const getSelectedSensorId = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('sensor');
+}
 document.addEventListener('DOMContentLoaded', async () => {
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const selectedSensorId = urlParams.get('sensor');
+    const selectedSensorId = getSelectedSensorId();
 
     const sensorData = await loadSensorData();
     const groupedData = groupDataBySensor(sensorData);
@@ -20,6 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function displayChartsForSensor(sensorId) {
+        console.log(sensorId);
         const sensorData = groupedData[sensorId];
         const chartsContainer = document.getElementById('chartsContainer');
         chartsContainer.innerHTML = '';
@@ -50,8 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Assuming newRecord has { timestamp, data: { location, device_name, temperature, pressure, battery_voltage } }
 
         const sensorId = `${newRecord.data.location}-${newRecord.data.device_name}`;
-        const urlParams = new URLSearchParams(window.location.search);
-        const selectedSensorId = urlParams.get('sensor');
+        const selectedSensorId = getSelectedSensorId();
 
         if (sensorId === selectedSensorId) {
             // Map each metric in newRecord.data to its respective updateChart call
@@ -77,4 +81,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
+    document.getElementById('chartTypeSelector').addEventListener('change', function () {
+        window.currentChartType = this.value;
+        const selectedSensorId = getSelectedSensorId();
+        displayChartsForSensor(selectedSensorId)
+    });
 });
+

@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         chartsContainer.innerHTML = '';
         const mainTitle = document.getElementById('sensorTitle');
         mainTitle.textContent = sensorId.replace(/_/g, ' ').replace(/-/g, ' ');
-        ['Temperature (°C)', 'Pressure (hPa)', 'Battery Voltage (mV)'].forEach(metric => {
+        ['Temperature', 'Pressure', 'Battery Voltage'].forEach(metric => {
             createChart(metric, sensorData, chartsContainer, sensorId);
         });
     }
@@ -60,13 +60,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (sensorId === selectedSensorId) {
             // Map each metric in newRecord.data to its respective updateChart call
             if (newRecord.data.temperature !== undefined) {
-                updateChart('Temperature (°C)', { timestamp: newRecord.timestamp, value: newRecord.data.temperature }, sensorId);
+                updateChart('Temperature', { timestamp: newRecord.timestamp, value: newRecord.data.temperature }, sensorId);
             }
             if (newRecord.data.pressure !== undefined) {
-                updateChart('Pressure (hPa)', { timestamp: newRecord.timestamp, value: newRecord.data.pressure }, sensorId);
+                updateChart('Pressure', { timestamp: newRecord.timestamp, value: newRecord.data.pressure }, sensorId);
             }
             if (newRecord.data.battery_voltage !== undefined) {
-                updateChart('Battery Voltage (mV)', { timestamp: newRecord.timestamp, value: newRecord.data.battery_voltage }, sensorId);
+                updateChart('Battery Voltage', { timestamp: newRecord.timestamp, value: newRecord.data.battery_voltage }, sensorId);
             }
         }
 

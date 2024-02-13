@@ -1,3 +1,4 @@
+
 export function createChart(metricName, sensorData, container, sensorId) {
     let chartId = `${sensorId}-${metricName.replace(/\s+/g, '-')}`.toLowerCase();
     chartId = chartId.replace(/-\(.+\)/g, '')
@@ -21,15 +22,15 @@ export function createChart(metricName, sensorData, container, sensorId) {
     let color;
 
     switch (metricName) {
-        case 'Temperature (°C)':
+        case 'Temperature':
             dataKey = 'temperatures';
             color = rootStyle.getPropertyValue('--accent-color-temperature').trim();
             break;
-        case 'Pressure (hPa)':
+        case 'Pressure':
             dataKey = 'pressures';
             color = rootStyle.getPropertyValue('--accent-color-pressure').trim();
             break;
-        case 'Battery Voltage (mV)':
+        case 'Battery Voltage':
             dataKey = 'voltages';
             color = rootStyle.getPropertyValue('--accent-color-voltage').trim();
             break;
@@ -88,26 +89,48 @@ export function createChart(metricName, sensorData, container, sensorId) {
 }
 
 export function updateChart(metricName, newPoint, sensorId) {
-    let chartId = `${sensorId}-${metricName.replace(/\s+/g, '-')}`.toLowerCase();
-    chartId = chartId.replace(/-\(.+\)/g, '')
+    console.log({ metricName, newPoint, sensorId })
+    const chartId = `${sensorId}-${metricName.replace(/\s+/g, '-')}`.toLowerCase().replace(/-\(.+\)/g, '');
     const chartDiv = document.getElementById(chartId);
+
+    console.log({ metricName, newPoint, sensorId })
 
     if (!chartDiv) {
         console.error(`Chart container not found for ${chartId}`);
         return;
     }
 
-    console.log('chartId', chartId)
+    // Retrieve the current data from the chart instance
+    const chartData = chartDiv.data;
 
-    const newData = {
-        x: [[newPoint.timestamp]],
-        y: [[newPoint.value]]
+    // If there's no data or the structure is not as expected, return
+    if (!chartData || !Array.isArray(chartData) || chartData.length === 0) {
+        console.error(`No data found for chart ${chartId}`);
+        return;
     }
 
-    console.log(newData)
+    // Check the chart type and update accordingly
+    if (chartData[0].type === 'line') {
+        // For line charts, extend the traces
+        Plotly.extendTraces(chartDiv, { x: [[newPoint.timestamp]], y: [[newPoint.value]] }, [0]);
+    } else if (chartData[0].type === 'bar') {
+        // For bar charts, update the data object
+        chartData[0].x.push(newPoint.timestamp);
+        chartData[0].y.push(newPoint.value);
+        // Redraw the chart with updated data
+        Plotly.react(chartId, chartData, chartDiv.layout);
+    }
 
-    Plotly.extendTraces(chartDiv, newData, [0]); // Assuming you're updating the first trace
-
-    console.log("data added to plot")
-
+    console.log("Chart updated");
 }
+
+setTimeout(() => {
+    updateChart(
+        "Battery Voltage",
+        {
+            "timestamp": "2024-02-09T13:17:39.196Z",
+            "value": 471
+        },
+        "AILABO_HEATER2-BME2"
+    )
+}, 5000)

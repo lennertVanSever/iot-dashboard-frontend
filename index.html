@@ -1,51 +1,78 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>Sensor Data Dashboard</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="logo/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="logo/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="logo/apple-touch-icon.png">
-    <link rel="mask-icon" href="logo/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="manifest" href="site.webmanifest">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="logo/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="logo/favicon-16x16.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="logo/apple-touch-icon.png"
+    />
+    <link rel="mask-icon" href="logo/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
     <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
 
-<body>
-    <nav id="sensorMenu">
-    </nav>
+  <body>
+    <nav id="sensorMenu"></nav>
     <section>
-        <header>
-            <h1 id="sensorTitle"></h1>
-            <div id="chartTypeSwitch">
-                <label>Chart Type:</label>
-                <select id="chartTypeSelector">
-                    <option value="line">Line</option>
-                    <option value="bar">Bar</option>
-                </select>
-            </div>
-        </header>
-        <div id="chartsContainer">
-            <!-- Charts will be dynamically inserted here -->
+      <header>
+        <h1 id="sensorTitle"></h1>
+        <div id="chartTypeSwitch" class="switch-field">
+          <input
+            type="radio"
+            id="chart-type-line"
+            name="chartType"
+            value="line"
+            checked
+          />
+          <label for="chart-type-line">Line</label>
+          <input
+            type="radio"
+            id="chart-type-bar"
+            name="chartType"
+            value="bar"
+          />
+          <label for="chart-type-bar">Bar</label>
         </div>
+      </header>
+      <div id="chartsContainer">
+        <!-- Charts will be dynamically inserted here -->
+      </div>
     </section>
     <script type="module" src="scripts/app.js"></script>
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/scripts/sw.js').then(registration => {
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                }, err => {
-                    console.log('ServiceWorker registration failed: ', err);
-                });
-            });
-        }
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/scripts/sw.js").then(
+            (registration) => {
+              console.log(
+                "ServiceWorker registration successful with scope: ",
+                registration.scope
+              );
+            },
+            (err) => {
+              console.log("ServiceWorker registration failed: ", err);
+            }
+          );
+        });
+      }
     </script>
-</body>
-
+  </body>
 </html>

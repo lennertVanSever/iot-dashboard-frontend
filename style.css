@@ -47,16 +47,23 @@ body {
   );
 }
 
-#sensorMenu {
+nav {
   color: var(--accent-color);
   width: 300px;
-  height: 100%;
+  height: 100vh;
   overflow-y: auto;
   padding: 10px;
   padding-right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-#sensorMenu .sensor-item {
+.alert-entry a {
+  color: white;
+}
+
+.sensor-item {
   margin-bottom: 5px;
   padding: 12px;
   border-radius: 5px;
@@ -65,12 +72,12 @@ body {
   /* Smooth transition for hover effect */
 }
 
-#sensorMenu .sensor-item:hover {
+.sensor-item:hover {
   background-color: rgba(255, 255, 255, 0.2);
   /* Hover effect for menu items */
 }
 
-#sensorMenu .selected {
+.selected {
   color: var(--accent-color);
   background-color: rgba(255, 255, 255, 0.4) !important;
 }

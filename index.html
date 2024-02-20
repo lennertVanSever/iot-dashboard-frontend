@@ -30,7 +30,10 @@
   </head>
 
   <body>
-    <nav id="sensorMenu"></nav>
+    <nav>
+      <div id="sensorMenu"></div>
+      <div class="sensor-item" id="alert-nav">ALERTS</div>
+    </nav>
     <section>
       <header>
         <h1 id="sensorTitle"></h1>
@@ -57,6 +60,7 @@
       </div>
     </section>
     <script type="module" src="scripts/app.js"></script>
+    <script type="module" src="scripts/alerts.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {

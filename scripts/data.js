@@ -57,3 +57,16 @@ export function updateGroupedDataWithNewRecord(groupedData, newRecord) {
 
   return identifier; // Return the sensorId for further processing
 }
+
+export async function loadAlertsData() {
+  try {
+    const response = await fetch(`${domain}/alerts`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch alerts data");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error loading alerts data:", error);
+    return []; // Return an empty array on error to simplify handling in the caller
+  }
+}

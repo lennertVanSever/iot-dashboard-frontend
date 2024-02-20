@@ -49,6 +49,7 @@ export function createChart(metricName, sensorData, container, sensorId) {
       mode: chartType === "line" ? "lines+markers" : undefined,
       marker: { color: color },
       line: chartType === "line" ? { color: color, width: 2 } : undefined,
+      width: chartType === "bar" ? 50000 : undefined,
     },
   ];
 

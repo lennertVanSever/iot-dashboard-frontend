@@ -2,7 +2,7 @@
 
 live url: https://iot-dashboard-inky.vercel.app
 
-Before starting the frontend, make sure that the backend is already running locally on http://localhost:3000
+Before starting the frontend, make sure that the [backend](https://github.com/lennertVanSever/iot-dashboard-server) is already running locally on http://localhost:3000
 
 To start this frontend just serve the index.html with a tool like [http-server](https://www.npmjs.com/package/http-server) or a vscode extension like [LiveSever](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
 

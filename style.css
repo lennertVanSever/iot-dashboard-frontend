@@ -222,3 +222,7 @@ h1 {
 .alert-entry {
   padding-bottom: 10px;
 }
+
+#alertSection {
+  display: none;
+}

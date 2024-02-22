@@ -211,3 +211,7 @@ header {
     margin-bottom: 15px;
   }
 }
+
+.alert-entry {
+  padding-bottom: 10px;
+}

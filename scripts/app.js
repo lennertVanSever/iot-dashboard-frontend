@@ -27,6 +27,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function displayChartsForSensor(sensorId) {
+    document.getElementById("alertSection").style.display = "none";
+    document.getElementById("chartSection").style.display = "block";
     console.log(sensorId);
     const sensorData = groupedData[sensorId];
     const chartsContainer = document.getElementById("chartsContainer");

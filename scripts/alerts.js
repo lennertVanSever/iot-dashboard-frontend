@@ -4,28 +4,21 @@ import { loadAlertsData } from "./data.js";
 document.addEventListener("DOMContentLoaded", function () {
   const alertButton = document.getElementById("alert-nav");
   alertButton.addEventListener("click", async function () {
-    const sensorTitle = document.getElementById("sensorTitle");
-    sensorTitle.textContent = "Alerts";
-
-    const chartTypeSwitch = document.getElementById("chartTypeSwitch");
-    const chartsContainer = document.getElementById("chartsContainer");
-    const headerElement = document.querySelector("header");
-    chartTypeSwitch.style.display = "none";
-    chartsContainer.style.display = "none";
-
-    // Remove the previous alerts container if it exists
-    const existingAlertsContainer = document.getElementById("alertsContainer");
-    if (existingAlertsContainer) {
-      existingAlertsContainer.remove();
-    }
-
+    this.classList.add("selected");
+    document
+      .querySelectorAll("#sensorMenu .sensor-item")
+      .forEach((sensorItem) => {
+        sensorItem.classList.remove("selected");
+      });
+    document.getElementById("alertSection").style.display = "block";
+    document.getElementById("chartSection").style.display = "none";
+    const alertsContainer = document.getElementById("alertsContainer");
+    alertsContainer.innerHTML = "";
     // Fetch and display alerts data
     const alertsData = await loadAlertsData(); // Use the imported function
 
     // Create a container for the alerts
-    const alertsContainer = document.createElement("div");
-    alertsContainer.id = "alertsContainer";
-    headerElement.insertAdjacentElement("afterend", alertsContainer); // Adjust based on your layout
+    const alertsList = document.createElement("div");
 
     // Populate the container with alert data
     alertsData.forEach((alert) => {
@@ -42,8 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
         .padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
 
       alertDiv.innerHTML = `<a href="index.html?sensor=${alert.data.sensorId}">${alert.data.sensorId}</a> has a problem: ${alert.data.problemId} at ${formattedDate}`;
-      alertsContainer.appendChild(alertDiv);
+      alertsList.appendChild(alertDiv);
     });
+    alertsContainer.appendChild(alertsList);
 
     // Optionally remove or adjust the "Hello Alerts" paragraph as needed
   });

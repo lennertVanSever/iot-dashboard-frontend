@@ -35,28 +35,39 @@
       <div class="sensor-item" id="alert-nav">ALERTS</div>
     </nav>
     <section>
-      <header>
-        <h1 id="sensorTitle"></h1>
-        <div id="chartTypeSwitch" class="switch-field">
-          <input
-            type="radio"
-            id="chart-type-line"
-            name="chartType"
-            value="line"
-            checked
-          />
-          <label for="chart-type-line">Line</label>
-          <input
-            type="radio"
-            id="chart-type-bar"
-            name="chartType"
-            value="bar"
-          />
-          <label for="chart-type-bar">Bar</label>
+      <div id="chartSection">
+        <header>
+          <h1 id="sensorTitle"></h1>
+          <div id="chartTypeSwitch" class="switch-field">
+            <input
+              type="radio"
+              id="chart-type-line"
+              name="chartType"
+              value="line"
+              checked
+            />
+            <label for="chart-type-line">Line</label>
+            <input
+              type="radio"
+              id="chart-type-bar"
+              name="chartType"
+              value="bar"
+            />
+            <label for="chart-type-bar">Bar</label>
+          </div>
+        </header>
+        <div id="chartsContainer">
+          <!-- Charts will be dynamically inserted here -->
         </div>
-      </header>
-      <div id="chartsContainer">
-        <!-- Charts will be dynamically inserted here -->
+      </div>
+
+      <div id="alertSection">
+        <header>
+          <h1>Alerts</h1>
+        </header>
+        <div id="alertsContainer">
+          <!-- Charts will be dynamically inserted here -->
+        </div>
       </div>
     </section>
     <script type="module" src="scripts/app.js"></script>
